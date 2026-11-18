@@ -1,12 +1,12 @@
 /*    
     This file is a part of stonefish_tutorial.
 
-    stonefish_ros is free software: you can redistribute it and/or modify
+    stonefish_tutorial is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    stonefish_ros is distributed in the hope that it will be useful,
+    stonefish_tutorial is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -42,12 +42,16 @@ namespace sf
         */
         SensorPlugin(std::string_view uniqueName, bool globalFrame, Scalar frequency = Scalar(-1), int historyLength = -1);
 
+        //! A method performing an internal update of the sensor state.
+        /*!
+         \param dt the sampling time of the simulation [s]
+         */
         void InternalUpdate(Scalar dt) override;
 
         //! A method used to set the noise characteristics of the sensor.
         /*!
-        \param fluidVelocityStdDev standard deviation of the linear acceleration measurement noise for each axis
-        */
+         \param fluidVelocityStdDev standard deviation of the linear acceleration measurement noise for each axis
+         */
         void SetNoise(Vector3 fluidVelocityStdDev);
 
         //! A method for creating ROS2 publishers for the sensor plugin.
@@ -76,7 +80,9 @@ namespace sf
 
         //! A method constructing the sensor based on info structure.
         /*!
-        \param info a construction info structure
+         \param uniqueName a name for the sensor
+         \param frequency the sampling frequency of the sensor [Hz] (0 if updated every simulation step)
+         \param info a construction info structure
         */
         static SensorPlugin* Construct(std::string_view uniqueName, Scalar frequency, ConstructInfo* info);
 
